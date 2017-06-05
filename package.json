@@ -1,8 +1,8 @@
 {
   "name": "angular-material-source",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "repository": {
-    "url": "git://github.com/angular/material.git"
+    "url": "git://github.com/redbeestudios/material.git"
   },
   "devDependencies": {
     "angular": "^1.4.0",
