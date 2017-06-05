@@ -386,29 +386,43 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
  */
 function SidenavController($scope, $element, $attrs, $mdComponentRegistry, $q) {
 
-  var self = this,
-      focusElement;
+    var self = this,
+        focusElement;
 
-  // Use Default internal method until overridden by directive postLink
+    // Use Default internal method until overridden by directive postLink
 
-  // Synchronous getters
-  self.isOpen = function() { return !!$scope.isOpen; };
-  self.isLockedOpen = function() { return !!$scope.isLockedOpen; };
+    // Synchronous getters
+    self.isOpen = function () {
+        return !!$scope.isOpen;
+    };
+    self.isLockedOpen = function () {
+        return !!$scope.isLockedOpen;
+    };
 
-  // Async actions
-  self.open   = function() { return self.$toggleOpen( true );  };
-  self.close  = function() { return self.$toggleOpen( false ); };
-  self.toggle = function() { return self.$toggleOpen( !$scope.isOpen );  };
-  self.focusElement = function(el) {
-    if ( angular.isDefined(el) ) {
-      focusElement = el;
-    }
-    return focusElement;
-  };
+    // Async actions
+    self.open = function () {
+        return self.$toggleOpen(true);
+    };
+    self.close = function () {
+        return self.$toggleOpen(false);
+    };
+    self.toggle = function () {
+        return self.$toggleOpen(!$scope.isOpen);
+    };
+    self.focusElement = function (el) {
+        if (angular.isDefined(el)) {
+            focusElement = el;
+        }
+        return focusElement;
+    };
 
-  self.$toggleOpen = function(value) { return $q.when($scope.isOpen = value); };
+    self.$toggleOpen = function (value) {
+        return $q.when($scope.isOpen = value);
+    };
 
-  // Register the component.
-  $attrs.$observe('mdComponentId', function(val){ 
-    self.destroy = $mdComponentRegistry.register(self, val);
-  });
+    // Register the component.
+    $attrs.$observe('mdComponentId', function (val) {
+        self.destroy = $mdComponentRegistry.register(self, val);
+    });
+}
+  
