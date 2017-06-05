@@ -1,14 +1,14 @@
 describe('mdSidenav', function() {
   beforeEach(module('material.components.sidenav'));
 
-  function setup(attrs) {
+  function setup(attrs, skipInitialDigest) {
     var el;
     inject(function($compile, $rootScope) {
       var parent = angular.element('<div>');
       el = angular.element('<md-sidenav ' + (attrs||'') + '>');
       parent.append(el);
       $compile(parent)($rootScope);
-      $rootScope.$apply();
+      !skipInitialDigest && $rootScope.$apply();
     });
     return el;
   }
@@ -123,13 +123,13 @@ describe('mdSidenav', function() {
 
   describe('controller', function() {
     it('should create controller', function() {
-      var el = setup('');
+      var el = setup();
       var controller = el.controller('mdSidenav');
       expect(controller).not.toBe(undefined);
     });
 
     it('should open and close and toggle', inject(function($timeout) {
-      var el = setup('');
+      var el = setup();
       var scope = el.isolateScope();
       var controller = el.controller('mdSidenav');
 
@@ -172,7 +172,7 @@ describe('mdSidenav', function() {
 
 
     it('should open(), close(), and toggle() with promises', function () {
-      var el = setup('');
+      var el = setup();
       var scope = el.isolateScope();
       var controller = el.controller('mdSidenav');
 
@@ -211,7 +211,7 @@ describe('mdSidenav', function() {
 
 
     it('should open() to work multiple times before close()', function () {
-      var el = setup('');
+      var el = setup();
       var controller = el.controller('mdSidenav');
 
       var openDone = 0, closeDone = 0;
@@ -242,12 +242,13 @@ describe('mdSidenav', function() {
   });
 
   describe('$mdSidenav Service', function() {
-    var $rootScope, $timeout;
+    var $rootScope, $timeout, $mdSidenav;
 
 
-        beforeEach( inject(function(_$rootScope_,_$timeout_) {
+      beforeEach(inject(function(_$rootScope_, _$timeout_, _$mdSidenav_) {
             $rootScope = _$rootScope_;
             $timeout = _$timeout_;
+            $mdSidenav = _$mdSidenav_;
         }));
 
 
